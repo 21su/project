@@ -12,6 +12,7 @@
     <title>이상형 월드컵</title>
 </head>
 <body>
+<jsp:include page="./layout/header.jsp" flush="false"></jsp:include>
     <div class="container mt-3">
         <h1 class="mt-3">이상형 월드컵</h1>
         num:${sessionScope.m_id}<br />

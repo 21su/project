@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
+<jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
     <div class="container mt-3">
         <form class="row g-3" action="/member/login" method="post">
             <br/>
