@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <title>이상형 월드컵</title>
 </head>
 <body>
-
+    <div class="container">
+        <h1>이상형 월드컵</h1>
+        <a href="/member/login">로그인</a>
+    </div>
 </body>
 </html>
