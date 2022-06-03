@@ -5,10 +5,7 @@ import com.its.project.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,6 +32,27 @@ public class MemberController {
             session.setAttribute("memberId", loginResult.getMemberId());
             session.setAttribute("memberName", loginResult.getMemberName());
             return "/index";
+        }
+    }
+
+    @GetMapping("/save")
+    public String saveForm(){
+        return "/member/save";
+    }
+
+    @PostMapping("/save")
+    public String save(@ModelAttribute MemberDTO memberDTO){
+        memberService.save(memberDTO);
+        return "/index";
+    }
+
+    @PostMapping("/memberIdCheck")
+    public @ResponseBody boolean memberIdCheck(@RequestParam("memberId") String memberId){
+        MemberDTO memberDTO = memberService.memberIdCheck(memberId);
+        if (memberDTO == null){
+            return true;
+        }else {
+            return  false;
         }
     }
 

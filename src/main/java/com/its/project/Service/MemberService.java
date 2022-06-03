@@ -13,4 +13,12 @@ public class MemberService {
     public MemberDTO login(MemberDTO loginDTO) {
         return memberRepository.login(loginDTO);
     }
+
+    public MemberDTO memberIdCheck(String memberId) {
+        return memberRepository.memberIdCheck(memberId);
+    }
+
+    public void save(MemberDTO memberDTO) {
+        memberRepository.save(memberDTO);
+    }
 }

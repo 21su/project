@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-3">
         <form class="row g-3" action="/member/login" method="post">
             <br/>
-            <h1 class="col col-12">로그인</h1>
+            <h1 class="col mt-3">로그인</h1>
             <div class="row mb-3">
                 <label for="inputmemberId" class="form-label">UserName</label>
                 <input type="text" class="form-control" id="inputmemberId" name="memberId" placeholder="UserName">
@@ -26,7 +26,8 @@
                 <p style="font-size: 7px; color: red">${message}</p>
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary float-start">Login</button>
+                <input type="button" class="btn btn-danger float-end" onclick="location.href='/member/save'" value="회원가입">
             </div>
         </form>
     </div>

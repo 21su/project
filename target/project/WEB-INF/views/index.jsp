@@ -8,9 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <title>이상형 월드컵</title>
 </head>
 <body>
-    <a href="/member/login">로그인</a>
+    <div class="container mt-3">
+        <h1 class="mt-3">이상형 월드컵</h1>
+        num:${sessionScope.m_id}<br />
+        id:${sessionScope.memberId}<br />
+        name:${sessionScope.memberName}<br />
+        <a href="/member/login">로그인</a>
+        <a href="/member/save">회원가입</a>
+    </div>
 </body>
 </html>

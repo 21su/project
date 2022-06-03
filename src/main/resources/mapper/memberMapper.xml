@@ -11,6 +11,9 @@
     <select id="login" parameterType="member" resultType="member">
         select * from member_t where memberId = #{memberId} and memberPassword = #{memberPassword}
     </select>
+    <select id="idCheck" parameterType="String" resultType="member">
+        select * from member_t where memberId = #{memberId}
+    </select>
 </mapper>
 
 

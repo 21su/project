@@ -5,9 +5,15 @@
 
 <mapper namespace="Member">
     <insert id="save" parameterType="member">
-        insert into member_table(memberId, memberPassword, memberName, memberEmail)
+        insert into member_t(memberId, memberPassword, memberName, memberEmail)
         values (#{memberId},#{memberPassword},#{memberName},#{memberEmail})
     </insert>
+    <select id="login" parameterType="member" resultType="member">
+        select * from member_t where memberId = #{memberId} and memberPassword = #{memberPassword}
+    </select>
+    <select id="idCheck" parameterType="String" resultType="member">
+        select * from member_t where memberId = #{memberId}
+    </select>
 </mapper>
 
 

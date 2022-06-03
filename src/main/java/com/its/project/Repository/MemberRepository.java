@@ -13,4 +13,13 @@ public class MemberRepository {
     public MemberDTO login(MemberDTO loginDTO) {
         return sql.selectOne("Member.login",loginDTO);
     }
+
+    public MemberDTO memberIdCheck(String memberId) {
+        MemberDTO memberDTO = sql.selectOne("Member.idCheck", memberId);
+        return memberDTO;
+    }
+
+    public void save(MemberDTO memberDTO) {
+        sql.insert("Member.save",memberDTO);
+    }
 }
