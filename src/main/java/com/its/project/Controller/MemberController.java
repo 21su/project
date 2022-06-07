@@ -90,4 +90,12 @@ public class MemberController {
         session.setAttribute("memberName", setDTO.getMemberName());
         return "/index";
     }
+
+    @GetMapping("/deleteId")
+    public String deleteId(@RequestParam("m_id") Long m_id,
+                           HttpSession session){
+        memberService.deleteId(m_id);
+        session.invalidate();
+        return "/index";
+    }
 }

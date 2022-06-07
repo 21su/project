@@ -23,6 +23,9 @@
     <update id="update" parameterType="member">
         update member_t set memberName = #{memberName}, memberEmail = #{memberEmail} where m_id = #{m_id}
     </update>
+    <delete id="deleteId" parameterType="Long">
+        delete from member_t where m_id = #{m_id}
+    </delete>
 </mapper>
 
 

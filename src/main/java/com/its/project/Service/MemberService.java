@@ -33,4 +33,8 @@ public class MemberService {
     public void update(MemberDTO updateDTO) {
         memberRepository.update(updateDTO);
     }
+
+    public void deleteId(Long m_id) {
+        memberRepository.deleteId(m_id);
+    }
 }
