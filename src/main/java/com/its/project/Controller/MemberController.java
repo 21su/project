@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Member;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
@@ -59,6 +61,33 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
+        return "/index";
+    }
+
+    @GetMapping("/detail")
+    public String detail(@RequestParam("m_id") Long m_id,
+                         Model model){
+        MemberDTO memberDTO = memberService.detail(m_id);
+        model.addAttribute("memberDTO", memberDTO);
+        return "/member/detail";
+    }
+
+    @PostMapping("/pwCheck")
+    public @ResponseBody boolean pwCheck(@ModelAttribute MemberDTO memberDTO){
+        MemberDTO resultDTO = memberService.pwCheck(memberDTO);
+        if(resultDTO != null){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO updateDTO,
+                         HttpSession session){
+        memberService.update(updateDTO);
+        MemberDTO setDTO = memberService.detail(updateDTO.getM_id());
+        session.setAttribute("memberName", setDTO.getMemberName());
         return "/index";
     }
 }

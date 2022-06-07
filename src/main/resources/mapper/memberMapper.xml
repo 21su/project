@@ -14,6 +14,15 @@
     <select id="idCheck" parameterType="String" resultType="member">
         select * from member_t where memberId = #{memberId}
     </select>
+    <select id="detail" parameterType="Long" resultType="member">
+        select * from member_t where m_id = #{m_id}
+    </select>
+    <select id="pwCheck" parameterType="member" resultType="member">
+        select * from member_t where m_id = #{m_id} and memberPassword = #{memberPassword}
+    </select>
+    <update id="update" parameterType="member">
+        update member_t set memberName = #{memberName}, memberEmail = #{memberEmail} where m_id = #{m_id}
+    </update>
 </mapper>
 
 

@@ -21,4 +21,16 @@ public class MemberService {
     public void save(MemberDTO memberDTO) {
         memberRepository.save(memberDTO);
     }
+
+    public MemberDTO detail(Long m_id) {
+        return memberRepository.detail(m_id);
+    }
+
+    public MemberDTO pwCheck(MemberDTO memberDTO) {
+        return memberRepository.pwCheck(memberDTO);
+    }
+
+    public void update(MemberDTO updateDTO) {
+        memberRepository.update(updateDTO);
+    }
 }

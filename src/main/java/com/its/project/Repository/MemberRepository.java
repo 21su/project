@@ -10,6 +10,10 @@ public class MemberRepository {
     @Autowired
     SqlSessionTemplate sql;
 
+    public void save(MemberDTO memberDTO) {
+        sql.insert("Member.save",memberDTO);
+    }
+
     public MemberDTO login(MemberDTO loginDTO) {
         return sql.selectOne("Member.login",loginDTO);
     }
@@ -19,7 +23,15 @@ public class MemberRepository {
         return memberDTO;
     }
 
-    public void save(MemberDTO memberDTO) {
-        sql.insert("Member.save",memberDTO);
+    public MemberDTO detail(Long m_id) {
+        return sql.selectOne("Member.detail", m_id);
+    }
+
+    public MemberDTO pwCheck(MemberDTO memberDTO) {
+        return sql.selectOne("Member.pwCheck", memberDTO);
+    }
+
+    public void update(MemberDTO updateDTO) {
+        sql.update("Member.update", updateDTO);
     }
 }
