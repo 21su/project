@@ -21,6 +21,13 @@
                 location.href="/member/login";
             }
         }
+        const myworld = () =>{
+            if(${sessionScope.memberId != null}){
+                location.href="/board/myb?m_id=${sessionScope.m_id}";
+            }else{
+                location.href="/member/login";
+            }
+        }
     </script>
 </head>
 <body>
@@ -35,6 +42,7 @@
         </a>
         <div class="navbar-nav flex-row flex-wrap bd-navbar-nav">
             <button type="button" onclick="created()" class="btn btn-info ms-3 text-white">월드컵 만들기</button>
+            <button type="button" onclick="myworld()" class="btn btn-info ms-3 text-white">내가 만든 월드컵</button>
         </div>
         <div class="navbar-nav flex-row flex-wrap ms-md-auto">
             <c:choose>

@@ -7,10 +7,13 @@
     <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="b_id">
         insert into board_t(boardCreatedDate)
         values (now())
-<!--        <selectKey keyProperty="b_id" resultType="Long" order="AFTER">-->
-<!--            select last_insert_id()-->
-<!--        </selectKey>-->
     </insert>
+    <update id="update" parameterType="board">
+        update board_t set boardName = #{boardName}, boardExp = #{boardExp}, boardSecret = #{boardSecret}, boardPassword = #{boardPassword} where b_id = #{b_id}
+    </update>
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from board_t where b_id = #{b_id}
+    </select>
 </mapper>
 
 

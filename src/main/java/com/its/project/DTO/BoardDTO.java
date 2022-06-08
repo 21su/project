@@ -19,5 +19,4 @@ public class BoardDTO {
     private String boardPassword;
     private Timestamp boardCreatedDate;
     private int boardViews;
-    private MultipartFile boardFile;
 }

@@ -8,6 +8,12 @@
         insert into board_t(boardCreatedDate)
         values (now())
     </insert>
+    <update id="update" parameterType="board">
+        update board_t set memberId= #{memberId} boardName = #{boardName}, boardExp = #{boardExp}, boardSecret = #{boardSecret}, boardPassword = #{boardPassword} where b_id = #{b_id}
+    </update>
+    <select id="findById" parameterType="Long" resultType="board">
+        select * from board_t where b_id = #{b_id}
+    </select>
 </mapper>
 
 
