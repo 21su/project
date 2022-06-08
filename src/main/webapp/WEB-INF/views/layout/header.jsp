@@ -13,6 +13,15 @@
     <script src="/resources/js/jquery.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script>
+        const created = () =>{
+            if(${sessionScope.memberId != null}){
+                location.href="/board/save";
+            }else{
+                location.href="/member/login";
+            }
+        }
+    </script>
 </head>
 <body>
 <header class="shadow navbar navbar-expand-lg navbar-dark bg-info text-white sticky-top">
@@ -25,17 +34,18 @@
             <span class="h4">이상형 월드컵</span>
         </a>
         <div class="navbar-nav flex-row flex-wrap bd-navbar-nav">
+            <button type="button" onclick="created()" class="btn btn-info ms-3 text-white">월드컵 만들기</button>
         </div>
         <div class="navbar-nav flex-row flex-wrap ms-md-auto">
             <c:choose>
                 <c:when test="${sessionScope.memberId != null}">
-                    <span class="">${sessionScope.memberName}님 환영합니다.</span>
-                    <button type="button" onclick="location.href='/member/detail?m_id=${sessionScope.m_id}'" class="btn btn-info ms-3">내정보</button>
-                    <button type="button" onclick="location.href='/member/logout'" class="btn btn-info ms-3">로그아웃</button>
+                    <span class="text-white">${sessionScope.memberName}님 환영합니다.</span>
+                    <button type="button" onclick="location.href='/member/detail?m_id=${sessionScope.m_id}'" class="btn btn-info ms-3 text-white">내정보</button>
+                    <button type="button" onclick="location.href='/member/logout'" class="btn btn-info ms-3 text-white">로그아웃</button>
                 </c:when>
                 <c:otherwise>
-                    <button type="button" onclick="location.href='/member/login'" class="btn btn-info">로그인</button>
-                    <button type="button" onclick="location.href='/member/save'" class="btn btn-info ms-3">회원가입</button>
+                    <button type="button" onclick="location.href='/member/login'" class="btn btn-info text-white">로그인</button>
+                    <button type="button" onclick="location.href='/member/save'" class="btn btn-info ms-3 text-white">회원가입</button>
                 </c:otherwise>
             </c:choose>
 

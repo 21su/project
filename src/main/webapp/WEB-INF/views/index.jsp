@@ -18,9 +18,6 @@
         num:${sessionScope.m_id}<br />
         id:${sessionScope.memberId}<br />
         name:${sessionScope.memberName}<br />
-        <a href="/member/login">로그인</a>
-        <a href="/member/save">회원가입</a>
-        <a href="/member/logout">로그아웃</a>
     </div>
 </body>
 </html>
