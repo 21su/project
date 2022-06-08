@@ -34,8 +34,18 @@ public class BoardController {
 
     @GetMapping("/myb")
     public String myb(HttpSession session,
-                      @RequestParam("m_id") Long m_id){
-        List<BoardDTO> boardList = boardService.findAllId(m_id);
+                      @RequestParam("memberId") String memberId,
+                      Model model){
+        List<BoardDTO> boardList = boardService.findAllId(memberId);
+        model.addAttribute("boardList", boardList);
         return "/board/myb";
+    }
+
+    @GetMapping("/update")
+    public String update (@RequestParam("b_id") Long b_id,
+                          Model model){
+        BoardDTO updateDTO = boardService.findById(b_id);
+        model.addAttribute("updateDTO", updateDTO);
+        return "/board/update";
     }
 }

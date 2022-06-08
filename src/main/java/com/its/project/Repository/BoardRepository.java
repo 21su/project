@@ -26,6 +26,7 @@ public class BoardRepository {
         return sql.selectOne("Board.findById", b_id);
     }
 
-    public List<BoardDTO> findAllId(Long m_id) {
+    public List<BoardDTO> findAllId(String memberId) {
+        return sql.selectList("Board.findAllId", memberId);
     }
 }

@@ -28,7 +28,7 @@ public class BoardService {
         return boardRepository.findById(b_id);
     }
 
-    public List<BoardDTO> findAllId(Long m_id) {
-        return boardRepository.findAllId(m_id);
+    public List<BoardDTO> findAllId(String memberId) {
+        return boardRepository.findAllId(memberId);
     }
 }

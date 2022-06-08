@@ -9,10 +9,13 @@
         values (now())
     </insert>
     <update id="update" parameterType="board">
-        update board_t set boardName = #{boardName}, boardExp = #{boardExp}, boardSecret = #{boardSecret}, boardPassword = #{boardPassword} where b_id = #{b_id}
+        update board_t set memberId = #{memberId}, boardName = #{boardName}, boardExp = #{boardExp}, boardSecret = #{boardSecret}, boardPassword = #{boardPassword} where b_id = #{b_id}
     </update>
     <select id="findById" parameterType="Long" resultType="board">
         select * from board_t where b_id = #{b_id}
+    </select>
+    <select id="findAllId" parameterType="String" resultType="board">
+        select * from board_t where memberId = #{memberId}
     </select>
 </mapper>
 

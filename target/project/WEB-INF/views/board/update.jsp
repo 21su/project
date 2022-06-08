@@ -31,6 +31,21 @@
                 }
             })
         }
+        $(document).ready(function(){
+
+            // 라디오버튼 클릭시 이벤트 발생
+            $("input:radio[name=boardSecret]").click(function(){
+
+                if($("input[name=boardSecret]:checked").val() == "3"){
+                    $("input:text[name=boardPassword]").attr("disabled",false);
+
+                }else if($("input[name=radio]:checked").val() != "3"){
+                    $("input:text[name=boardPassword]").val('');
+                    $("input:text[name=boardPassword]").attr("disabled",true);
+                }
+            });
+        });
+
     </script>
 </head>
 <body>
@@ -39,7 +54,7 @@
     <h2>월드컵 생성</h2>
 </div>
     <div class="container mt-5">
-        <div class="border border-1 border-white text-secondary">
+        <div class="border border-1 border-black text-secondary">
             <form name="updateForm" action="/board/update" method="post">
                 <input type="hidden" name="b_id" value="${updateDTO.b_id}">
                 <input type="hidden" name="memberId" value="${sessionScope.memberId}">
@@ -65,22 +80,25 @@
                         <td class="col-sm-1">
                             <h6 class="ms-3 mt-2">공개여부</h6>
                             <div class="form-check ms-5">
-                                <input class="form-check-input" type="radio" name="boardSecret" id="radio1" value="1" required>
+                                <input class="form-check-input" type="radio" name="boardSecret" id="radio1" value="1" checked>
                                 <label class="form-check-label" for="radio1">
                                     비공개(다른 사용자는 접근할 수 없습니다.)
                                 </label>
                             </div>
                             <div class="form-check ms-5">
-                                <input class="form-check-input" type="radio" name="boardSecret" id="radio2" value="2" required>
+                                <input class="form-check-input" type="radio" name="boardSecret" id="radio2" value="2">
                                 <label class="form-check-label" for="radio2">
                                     전체 공개(모든 사용자가 플레이 할 수 있습니다.)
                                 </label>
                             </div>
                             <div class="form-check ms-5">
-                                <input class="form-check-input" type="radio" name="boardSecret" id="radio3" value="3" required>
+                                <input class="form-check-input" type="radio" name="boardSecret" id="radio3" value="3">
                                 <label class="form-check-label" for="radio3">
                                     친구 공개(비밀번호 입력 후 플레이 할 수 있습니다.)
                                 </label>
+                            </div>
+                            <div class="form-text">
+                                <input type="text" class="form-control-sm" name="boardPassword" style="margin-left: 2cm;" placeholder="비밀번호 입력" disabled>
                             </div>
                         </td>
                     </tr>
@@ -90,6 +108,17 @@
                                 <input type="button" onclick="updateForm1()" value="저장하기" class="btn btn-primary mt-3 mb-1">
                                 <p id="message"></p>
                             </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="border border-1 border-black text-secondary">
+            <form method="post" action="/board/saveImage">
+                <table class="table table-info">
+                    <tr>
+                        <td class="col-sm-1">
+                            <h5 class="mt-3 mb-3">이상형 월드컵 이미지 업로드</h5>
                         </td>
                     </tr>
                 </table>
