@@ -15,8 +15,8 @@
     <script src="/resources/js/jquery.js"></script>
     <title>월드컵 만들기</title>
     <script>
+        let count = 0;
         const updateForm1 = () =>{
-            alert("aa");
             const queryString = $("form[name=updateForm]").serialize();
             const message = document.getElementById("message");
             $.ajax({
@@ -25,7 +25,7 @@
                 data: queryString,
                 dataType: 'json',
                 success: function (result){
-                    alert(result);
+
                 },error: function (){
                     alert("error");
                 }
@@ -46,6 +46,46 @@
             });
         });
 
+        <%--function subImg() {--%>
+        <%--    alert("aa");--%>
+        <%--    let formData = new FormData($('#imageForm')[0]);--%>
+        <%--    let inputFile = $("input[name = 'file']");--%>
+        <%--    let files = inputFile[0].files;--%>
+        <%--    console.log(files);--%>
+        <%--    for(let i = 0; i < files.length; i++){--%>
+        <%--        formData.append("file", files[i]);--%>
+        <%--    }--%>
+        <%--    alert(formData);--%>
+        <%--    /*const queryString = $("form[name=imageForm]").serialize();--%>
+        <%--    const file = $('#inputFile').val();*/--%>
+        <%--    const fileText = $('#fileText');--%>
+        <%--    const b_id = "${updateDTO.b_id};"--%>
+        <%--    $.ajax({--%>
+        <%--        type : "post",--%>
+        <%--        async : false,--%>
+        <%--        url : "/board/save-image",--%>
+        <%--        contentType : false,--%>
+        <%--        processData : false,--%>
+        <%--        enctype : "multipart/form-data",--%>
+        <%--        data : {--%>
+        <%--            formData,--%>
+        <%--            "b_id": b_id--%>
+        <%--        },--%>
+        <%--        dataType    : 'json',--%>
+        <%--        success : function (result){--%>
+        <%--            let rc = "";--%>
+        <%--            if(count == 0){--%>
+        <%--                fileText.innerHTML = "";--%>
+        <%--            }--%>
+        <%--            for(let i in result){--%>
+        <%--                rc += "<div class='col m-2'><img src='${pageContext.request.contextPath}/upload/"+result[i].imageManageName+"' alt='' height='100' width='100'></div>";--%>
+        <%--            }--%>
+        <%--            fileText.innerHTML += rc;--%>
+        <%--        },error : function (request,status,error){--%>
+        <%--            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);--%>
+        <%--        }--%>
+        <%--    });--%>
+        // }
     </script>
 </head>
 <body>
@@ -114,11 +154,29 @@
             </form>
         </div>
         <div class="border border-1 border-black text-secondary">
-            <form method="post" action="/board/saveImage">
+            <form method="post" id="imageForm" name="imageForm" action="/board/save-image" enctype="multipart/form-data">
+                <input type="hidden" name="b_id" id="b_id" value="${updateDTO.b_id}">
                 <table class="table table-info">
                     <tr>
                         <td class="col-sm-1">
                             <h5 class="mt-3 mb-3">이상형 월드컵 이미지 업로드</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-1">
+                            <div class="container">
+                            <label for="file" class="position-relative" style="width: 650px; height: 400px;">
+                                <div class="position-absolute top-50 start-50 translate-middle h2 row imgs_wrap" id="fileText">여기에 이미지 넣기<img id="img" /></div>
+                            </label>
+                            <input type="file" name="file" id="file" multiple>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-sm-1 ms-3">
+                                <input type="submit" value="업로드" class="btn btn-danger mt-3 mb-1">
+                            </div>
                         </td>
                     </tr>
                 </table>

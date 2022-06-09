@@ -1,6 +1,7 @@
 package com.its.project.Repository;
 
 import com.its.project.DTO.BoardDTO;
+import com.its.project.DTO.ImageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,6 @@ public class BoardRepository {
 
     public BoardDTO saveBoard(BoardDTO boardDTO) {
         Long id = Long.valueOf(sql.insert("Board.save", boardDTO));
-        System.out.println(boardDTO);
         return boardDTO;
     }
 
@@ -28,5 +28,9 @@ public class BoardRepository {
 
     public List<BoardDTO> findAllId(String memberId) {
         return sql.selectList("Board.findAllId", memberId);
+    }
+
+    public void saveImage(ImageDTO imageDTO) {
+        Long id = Long.valueOf(sql.insert("Image.save", imageDTO));
     }
 }

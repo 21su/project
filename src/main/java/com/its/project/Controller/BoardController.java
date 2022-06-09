@@ -1,13 +1,18 @@
 package com.its.project.Controller;
 
 import com.its.project.DTO.BoardDTO;
+import com.its.project.DTO.ImageDTO;
 import com.its.project.Service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,5 +52,12 @@ public class BoardController {
         BoardDTO updateDTO = boardService.findById(b_id);
         model.addAttribute("updateDTO", updateDTO);
         return "/board/update";
+    }
+
+    @PostMapping("/save-image")
+    public String saveImage(@RequestParam("file") List<MultipartFile> file, @RequestParam("b_id") Long b_id) throws IOException {
+        System.out.println("BoardController.saveImage");
+        boardService.saveImage(file, b_id);
+        return "redirect:/board/update?b_id=" + b_id;
     }
 }
