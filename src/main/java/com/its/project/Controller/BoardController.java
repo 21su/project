@@ -27,6 +27,7 @@ public class BoardController {
     @GetMapping("/save")
     public String saveBoard(@ModelAttribute BoardDTO boardDTO,
                             Model model){
+        System.out.println(boardDTO);
         BoardDTO id = boardService.saveBoard(boardDTO);
         model.addAttribute("updateDTO",id);
         return "/board/update";
@@ -34,39 +35,17 @@ public class BoardController {
 
     @PostMapping("/update")
     public @ResponseBody BoardDTO updateBoard(@ModelAttribute BoardDTO boardDTO){
-        boardService.update(boardDTO);
-        BoardDTO updateDTO = boardService.findById(boardDTO.getB_id());
+        BoardDTO updateDTO = new BoardDTO();
+        if (boardDTO.getB_id() == null){
+            updateDTO = boardService.saveBoard(boardDTO);
+        }
+        else{
+            boardService.update(boardDTO);
+            updateDTO = boardService.findById(boardDTO.getB_id());
+        }
         return updateDTO;
     }
 
-    @GetMapping("/myb")
-    public String myb(HttpSession session,
-                      @RequestParam("memberId") String memberId,
-                      Model model){
-        List<BoardDTO> boardList = boardService.findAllId(memberId);
-        Map<Long ,List<ImageDTO>> listMap = new HashMap<>();
-        System.out.println(boardList.size());
-            System.out.println("첫번째 포문 들");
-        for(int i = 0; boardList.size() > i;i++){
-            System.out.println("첫 진행");
-            List<ImageDTO> imageDTOList = boardService.imageTitle(boardList.get(i).getB_id());
-            System.out.println(imageDTOList.size());
-            System.out.println(i);
-            System.out.println("두번째 포문들");
-            for(int j = 0; 2 > j; j++){
-                if(imageDTOList.size() < 2){
-                    imageDTOList.add(null);
-                }
-                    System.out.println(j);
-            }
-            listMap.put(boardList.get(i).getB_id(), imageDTOList);
-            System.out.println("둘 나옴");
-        }
-        System.out.println("나감");
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("listMap", listMap);
-        return "/board/myb";
-    }
 
     @GetMapping("/update")
     public String update (@RequestParam("b_id") Long b_id,
@@ -76,10 +55,55 @@ public class BoardController {
         return "/board/update";
     }
 
+    @GetMapping("/update2")
+    public String update2 (@RequestParam("b_id") Long b_id,
+                          Model model){
+        BoardDTO updateDTO = boardService.findById(b_id);
+        List<ImageDTO> imageList = boardService.imageId(b_id);
+        model.addAttribute("updateDTO", updateDTO);
+        model.addAttribute("imageList", imageList);
+        return "/board/update2";
+    }
+
+
     @PostMapping("/save-image")
     public String saveImage(@RequestParam("file") List<MultipartFile> file, @RequestParam("b_id") Long b_id) throws IOException {
         System.out.println("BoardController.saveImage");
         boardService.saveImage(file, b_id);
         return "redirect:/board/update?b_id=" + b_id;
+    }
+    @GetMapping("/myb")
+    public String myb(HttpSession session,
+                      @RequestParam("memberId") String memberId,
+                      Model model){
+        List<BoardDTO> boardList = boardService.findAllId(memberId);
+        Map<Long ,List<ImageDTO>> listMap = new HashMap<>();
+        for(int i = 0; boardList.size() > i;i++){
+            List<ImageDTO> imageDTOList = boardService.imageTitle(boardList.get(i).getB_id());
+            for(int j = 0; 2 > j; j++){
+                if(imageDTOList.size() < 2){
+                    imageDTOList.add(null);
+                }
+            }
+            listMap.put(boardList.get(i).getB_id(), imageDTOList);
+        }
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("listMap", listMap);
+        model.addAttribute("memberId",memberId);
+        return "/board/myb";
+    }
+
+    @GetMapping("/delete-board")
+    public String deleteBoard(@RequestParam("b_id") Long b_id,
+                              @RequestParam("memberId") String memberId){
+        boardService.deleteBoard(b_id);
+        return "redirect:/board/myb?memberId=" + memberId;
+    }
+
+    @GetMapping("/image-delete")
+    public String imageDelete(@RequestParam("i_id") Long i_id,
+                              @RequestParam("b_id") Long b_id){
+        boardService.imageDelete(i_id);
+        return "redirect:/board/update2?b_id=" + b_id;
     }
 }

@@ -41,4 +41,12 @@ public class BoardRepository {
     public List<ImageDTO> imageTitle(Long b_id) {
         return sql.selectList("Image.findTitle", b_id);
     }
+
+    public void deleteBoard(Long b_id) {
+        sql.delete("Board.delete-board",b_id);
+    }
+
+    public void imageDelete(Long i_id) {
+        sql.delete("Image.delete",i_id);
+    }
 }

@@ -5,8 +5,8 @@
 
 <mapper namespace="Board">
     <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="b_id">
-        insert into board_t(boardCreatedDate)
-        values (now())
+        insert into board_t(memberId, boardCreatedDate)
+        values (#{memberId},now())
     </insert>
     <update id="update" parameterType="board">
         update board_t set memberId = #{memberId}, boardName = #{boardName}, boardExp = #{boardExp}, boardSecret = #{boardSecret}, boardPassword = #{boardPassword} where b_id = #{b_id}
@@ -17,6 +17,9 @@
     <select id="findAllId" parameterType="String" resultType="board">
         select * from board_t where memberId = #{memberId}
     </select>
+    <delete id="delete-board" parameterType="Long">
+        delete from board_t where b_id = #{b_id}
+    </delete>
 </mapper>
 
 

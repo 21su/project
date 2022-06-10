@@ -93,8 +93,22 @@
 <div class="container mt-3">
     <h2>월드컵 생성</h2>
 </div>
-    <div class="container mt-5">
-        <div class="border border-1 border-black text-secondary">
+    <div class="container-xl mt-5">
+        <div class="border border-1 border-dark text-secondary">
+            <table class="table table-info">
+                <tr onclick="location.href='/board/update2?b_id=${updateDTO.b_id}'">
+                    <td class="col-sm-1 table-secondary">
+                        <h5 class="mt-3 mb-3">이미지 이름 수정/삭제</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sm-1">
+                        <h5 class="mt-3 mb-3">이미지 이름 수정/삭제</h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="border border-1 border-dark text-secondary">
             <form name="updateForm" action="/board/update" method="post">
                 <input type="hidden" name="b_id" value="${updateDTO.b_id}">
                 <input type="hidden" name="memberId" value="${sessionScope.memberId}">

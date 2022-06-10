@@ -16,7 +16,7 @@
     <script>
         const created = () =>{
             if(${sessionScope.memberId != null}){
-                location.href="/board/save";
+                location.href="/board/save?memberId=${sessionScope.memberId}";
             }else{
                 location.href="/member/login";
             }

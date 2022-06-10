@@ -64,4 +64,12 @@ public class BoardService {
     public List<ImageDTO> imageTitle(Long b_id) {
         return boardRepository.imageTitle(b_id);
     }
+
+    public void deleteBoard(Long b_id) {
+        boardRepository.deleteBoard(b_id);
+    }
+
+    public void imageDelete(Long i_id) {
+        boardRepository.imageDelete(i_id);
+    }
 }

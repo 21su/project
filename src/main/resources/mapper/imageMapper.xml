@@ -14,6 +14,9 @@
     <select id="findTitle" parameterType="Long" resultType="image">
         select * from image_t where b_id = #{b_id} LIMIT 0,2
     </select>
+    <delete id="delete" parameterType="Long">
+        delete from image_t where i_id = #{i_id}
+    </delete>
 </mapper>
 
 
