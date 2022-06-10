@@ -53,9 +53,15 @@ public class BoardService {
             if (!boardFile.isEmpty()){
                 boardFile.transferTo((new File(savePath)));
             }
-            System.out.println("AA");
             boardRepository.saveImage(imageDTO);
         }
     }
 
+    public List<ImageDTO> imageId(Long b_id) {
+        return boardRepository.imageId(b_id);
+    }
+
+    public List<ImageDTO> imageTitle(Long b_id) {
+        return boardRepository.imageTitle(b_id);
+    }
 }

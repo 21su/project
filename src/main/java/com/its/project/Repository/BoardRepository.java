@@ -33,4 +33,12 @@ public class BoardRepository {
     public void saveImage(ImageDTO imageDTO) {
         Long id = Long.valueOf(sql.insert("Image.save", imageDTO));
     }
+
+    public List<ImageDTO> imageId(Long b_id) {
+        return sql.selectList("Image.findById", b_id);
+    }
+
+    public List<ImageDTO> imageTitle(Long b_id) {
+        return sql.selectList("Image.findTitle", b_id);
+    }
 }

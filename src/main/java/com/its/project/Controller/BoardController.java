@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/board")
@@ -42,7 +44,27 @@ public class BoardController {
                       @RequestParam("memberId") String memberId,
                       Model model){
         List<BoardDTO> boardList = boardService.findAllId(memberId);
+        Map<Long ,List<ImageDTO>> listMap = new HashMap<>();
+        System.out.println(boardList.size());
+            System.out.println("첫번째 포문 들");
+        for(int i = 0; boardList.size() > i;i++){
+            System.out.println("첫 진행");
+            List<ImageDTO> imageDTOList = boardService.imageTitle(boardList.get(i).getB_id());
+            System.out.println(imageDTOList.size());
+            System.out.println(i);
+            System.out.println("두번째 포문들");
+            for(int j = 0; 2 > j; j++){
+                if(imageDTOList.size() < 2){
+                    imageDTOList.add(null);
+                }
+                    System.out.println(j);
+            }
+            listMap.put(boardList.get(i).getB_id(), imageDTOList);
+            System.out.println("둘 나옴");
+        }
+        System.out.println("나감");
         model.addAttribute("boardList", boardList);
+        model.addAttribute("listMap", listMap);
         return "/board/myb";
     }
 
