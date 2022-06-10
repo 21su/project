@@ -106,4 +106,17 @@ public class BoardController {
         boardService.imageDelete(i_id);
         return "redirect:/board/update2?b_id=" + b_id;
     }
+
+    @PostMapping("/image-name")
+    public @ResponseBody ImageDTO imageName(@ModelAttribute ImageDTO imageDTO){
+        boardService.imageName(imageDTO);
+        return imageDTO;
+    }
+
+    @PostMapping("/image-update")
+    public @ResponseBody ImageDTO imageUpdate(@ModelAttribute ImageDTO imageDTO) throws IOException {
+        boardService.imageUpdate(imageDTO);
+        ImageDTO imageDTO1 = boardService.imageById(imageDTO.getI_id());
+        return imageDTO1;
+    }
 }

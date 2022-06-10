@@ -72,4 +72,25 @@ public class BoardService {
     public void imageDelete(Long i_id) {
         boardRepository.imageDelete(i_id);
     }
+
+    public void imageName(ImageDTO imageDTO) {
+        boardRepository.imageName(imageDTO);
+    }
+
+    public void imageUpdate(ImageDTO imageDTO) throws IOException {
+        MultipartFile imageProfile = imageDTO.getFile();
+        String imageProfileName = imageProfile.getOriginalFilename();
+        imageDTO.setImageName(imageProfileName);
+        imageProfileName = System.currentTimeMillis() + "-" + imageProfileName;
+        imageDTO.setImageManageName(imageProfileName);
+        String savePath = "D:\\spring_img\\" + imageProfileName;
+        if (!imageProfile.isEmpty()){
+            imageProfile.transferTo((new File(savePath)));
+        }
+        boardRepository.imageUpdate(imageDTO);
+    }
+
+    public ImageDTO imageById(Long i_id) {
+        return boardRepository.imageById(i_id);
+    }
 }

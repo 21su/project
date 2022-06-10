@@ -49,4 +49,17 @@ public class BoardRepository {
     public void imageDelete(Long i_id) {
         sql.delete("Image.delete",i_id);
     }
+
+    public void imageName(ImageDTO imageDTO) {
+        sql.update("Image.name",imageDTO);
+    }
+
+    public void imageUpdate(ImageDTO imageDTO) {
+        sql.update("Image.update",imageDTO);
+    }
+
+    public ImageDTO imageById(Long i_id) {
+        ImageDTO imageDTO = sql.selectOne("Image.image-id",i_id);
+        return imageDTO;
+    }
 }

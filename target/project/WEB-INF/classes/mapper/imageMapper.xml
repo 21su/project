@@ -17,6 +17,15 @@
     <delete id="delete" parameterType="Long">
         delete from image_t where i_id = #{i_id}
     </delete>
+    <update id="name" parameterType="image">
+        update image_t set imageName = #{imageName} where i_id = #{i_id}
+    </update>
+    <update id="update" parameterType="image">
+        update image_t set imageName = #{imageName}, imageManageName = #{imageManageName} where i_id = #{i_id}
+    </update>
+    <select id="image-id" parameterType="Long" resultType="image">
+        select * from image_t where i_id = #{i_id}
+    </select>
 </mapper>
 
 
