@@ -118,4 +118,20 @@ public class BoardController {
         ImageDTO imageDTO1 = boardService.imageById(imageDTO.getI_id());
         return imageDTO1;
     }
+
+    @GetMapping("/select")
+    public String select(@RequestParam("b_id") Long b_id,
+                         Model model){
+        BoardDTO boardDTO = boardService.findById(b_id);
+        Map<Integer, String> roundMap = boardService.round(b_id);
+        int num = boardService.roundCount(b_id);
+        model.addAttribute("boardDTO", boardDTO);
+        model.addAttribute("roundMap", roundMap);
+        model.addAttribute("num", num);
+        if (num < 4){
+            return "redirect:/";
+        }else {
+            return "/board/select";
+        }
+    }
 }

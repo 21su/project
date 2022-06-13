@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -93,5 +95,43 @@ public class BoardService {
 
     public List<BoardDTO> findAll() {
         return boardRepository.findAll();
+    }
+
+    public Map<Integer, String> round(Long b_id) {
+        int num = 0;
+        try {
+            num = boardRepository.roundCheck(b_id);
+        }
+        catch (NullPointerException e){
+            num = 0;
+        }
+        Map<Integer ,String> roundMap = new HashMap<>();
+        if(num == 0){
+            roundMap.put(0,"");
+        }
+        if(num > 4){
+            roundMap.put(4, "4강");
+            if(num >= 8){
+                roundMap.put(8, "8강");
+                if(num >= 16){
+                    roundMap.put(16,"16강");
+                    if(num >= 32){
+                        roundMap.put(32, "32강");
+                        if (num >= 64){
+                            roundMap.put(64,"64강");
+                        }
+                    }
+                }
+            }
+        }
+        return roundMap;
+    }
+
+    public int roundCount(Long b_id) {
+        try {
+            return boardRepository.roundCheck(b_id);
+        }catch (NullPointerException e){
+            return 0;
+        }
     }
 }

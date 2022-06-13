@@ -66,4 +66,9 @@ public class BoardRepository {
     public List<BoardDTO> findAll() {
         return sql.selectList("Board.findAll");
     }
+
+    public int roundCheck(Long b_id) {
+        int num =  sql.selectOne("Board.round", b_id);
+        return num;
+    }
 }

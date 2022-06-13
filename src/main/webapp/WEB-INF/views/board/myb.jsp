@@ -35,7 +35,7 @@
         </div>
         <a>${board.boardName}&nbsp;</a>
         <div class="small">${board.boardExp}&nbsp;</div>
-        <a href="" class="btn btn-sm btn-outline-success mb-2">시작하기</a>
+        <a href="/board/select?b_id=${board.b_id}" class="btn btn-sm btn-outline-success mb-2">시작하기</a>
         <a href="" class="btn btn-sm btn-outline-warning mb-2">랭킹보기</a>
         <button type="button" onclick="location.href='/board/update?b_id=${board.b_id}'" class="btn btn-sm btn-outline-info mb-2">수정하기</button>
         <button type="button" onclick="location.href='/board/delete-board?b_id=${board.b_id}&memberId=${memberId}'" class="btn btn-sm btn-outline-danger mb-2">삭제하기</button>

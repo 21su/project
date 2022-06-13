@@ -35,7 +35,7 @@
                 </div>
                 <a>${board.boardName}&nbsp;</a>
                 <div class="small">${board.boardExp}&nbsp;</div>
-                <a href="" class="btn btn-sm btn-outline-success mb-2">시작하기</a>
+                <a href="/board/select?b_id=${board.b_id}" class="btn btn-sm btn-outline-success mb-2">시작하기</a>
                 <a href="" class="btn btn-sm btn-outline-warning mb-2">랭킹보기</a>
             </div>
         </div>

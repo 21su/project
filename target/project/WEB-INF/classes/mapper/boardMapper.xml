@@ -23,6 +23,9 @@
     <select id="findAll" resultType="board">
         select * from board_t where boardSecret = 2 or boardSecret = 3
     </select>
+    <select id="round" parameterType="Long" resultType="int">
+        select  count(i_id) from image_t where b_id = #{b_id} group by b_id
+    </select>
 </mapper>
 
 
