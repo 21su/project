@@ -17,9 +17,6 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public void findAll() {
-
-    }
 
     public BoardDTO saveBoard(BoardDTO boardDTO) {
         return boardRepository.saveBoard(boardDTO);
@@ -92,5 +89,9 @@ public class BoardService {
 
     public ImageDTO imageById(Long i_id) {
         return boardRepository.imageById(i_id);
+    }
+
+    public List<BoardDTO> findAll() {
+        return boardRepository.findAll();
     }
 }

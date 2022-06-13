@@ -25,6 +25,7 @@
                 data: queryString,
                 dataType: 'json',
                 success: function (result){
+                    alert("수정되었습니다.")
 
                 },error: function (){
                     alert("error");
@@ -32,7 +33,7 @@
             })
         }
         $(document).ready(function(){
-
+            $('input:radio[name=boardSecret]:input[value="${updateDTO.boardSecret}"]').prop("checked", true);
             // 라디오버튼 클릭시 이벤트 발생
             $("input:radio[name=boardSecret]").click(function(){
 
@@ -103,7 +104,7 @@
                 </tr>
                 <tr>
                     <td class="col-sm-1">
-                        <h5 class="mt-3 mb-3">이미지 이름 수정/삭제</h5>
+                        <h5 class="mt-3 mb-3">기본정보 수정/이미지 업로드</h5>
                     </td>
                 </tr>
             </table>

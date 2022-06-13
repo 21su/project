@@ -73,8 +73,7 @@ public class BoardController {
         return "redirect:/board/update?b_id=" + b_id;
     }
     @GetMapping("/myb")
-    public String myb(HttpSession session,
-                      @RequestParam("memberId") String memberId,
+    public String myb(@RequestParam("memberId") String memberId,
                       Model model){
         List<BoardDTO> boardList = boardService.findAllId(memberId);
         Map<Long ,List<ImageDTO>> listMap = new HashMap<>();

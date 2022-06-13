@@ -62,4 +62,8 @@ public class BoardRepository {
         ImageDTO imageDTO = sql.selectOne("Image.image-id",i_id);
         return imageDTO;
     }
+
+    public List<BoardDTO> findAll() {
+        return sql.selectList("Board.findAll");
+    }
 }

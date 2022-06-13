@@ -100,7 +100,6 @@
                 processData: false,
                 cache: false,
                 success: function (result){
-                    document.getElementById("success"+result.i_id).innerHTML = "변경했습니다."
                     console.log(result);
                     $("#success"+result.i_id).fadeIn(1000).delay(1000).fadeOut(1000);
                 },error:function (){
@@ -111,7 +110,7 @@
         const imageChange = (i) => {
             let data = new FormData();
             data.append("i_id", i);
-            data.append("file", $('#file').prop('files')[0])
+            data.append("file", $('#file'+i).prop('files')[0])
 
             $.ajax({
                 url: "/board/image-update",
@@ -184,13 +183,13 @@
                                     </td>
                                     <td class="col-sm-1">
                                         <input type="text" name="imageName" id="imageName${image.i_id}" onkeypress="javascript:if(event.keyCode==13){imageUpdate(${image.i_id})}" value="${image.imageName}" required>
-                                        <p id="success${image.i_id}" style="font-size: 7px;color: green;"></p>
+                                        <p id="success${image.i_id}" style="font-size: 7px;color: green;display: none">변경되었습니다.</p>
                                     </td>
                                     <td class="col-sm-1">
-                                        <label for="file" class="position-relative" style="width: 400px; height: 100px;">
+                                        <label for="file${image.i_id}" class="position-relative" style="width: 400px; height: 100px;">
                                             <div class="position-absolute top-50 start-50 translate-middle h4 row imgs_wrap" id="fileText">여기에 이미지 넣기</div>
                                         </label>
-                                        <input type="file" name="file" id="file" onchange="imageChange(${image.i_id})" style="display: none;">
+                                        <input type="file" name="file" id="file${image.i_id}" onchange="imageChange(${image.i_id})" style="display: none;">
                                     </td>
                                     <td class="col-sm-1">
                                         <input type="button" class="btn-outline-warning" onclick="location.href='/board/image-delete?i_id=${image.i_id}&b_id=${image.b_id}'" value="삭제 하기">

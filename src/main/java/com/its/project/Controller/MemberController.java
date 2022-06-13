@@ -33,7 +33,7 @@ public class MemberController {
             session.setAttribute("m_id", loginResult.getM_id());
             session.setAttribute("memberId", loginResult.getMemberId());
             session.setAttribute("memberName", loginResult.getMemberName());
-            return "/index";
+            return "redirect:/";
         }
     }
 
@@ -45,7 +45,7 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO){
         memberService.save(memberDTO);
-        return "/index";
+        return "redirect:/";
     }
 
     @PostMapping("/memberIdCheck")
@@ -61,7 +61,7 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "/index";
+        return "redirect:/";
     }
 
     @GetMapping("/detail")
@@ -88,7 +88,7 @@ public class MemberController {
         memberService.update(updateDTO);
         MemberDTO setDTO = memberService.detail(updateDTO.getM_id());
         session.setAttribute("memberName", setDTO.getMemberName());
-        return "/index";
+        return "redirect:/";
     }
 
     @GetMapping("/deleteId")
@@ -96,6 +96,6 @@ public class MemberController {
                            HttpSession session){
         memberService.deleteId(m_id);
         session.invalidate();
-        return "/index";
+        return "redirect:/";
     }
 }

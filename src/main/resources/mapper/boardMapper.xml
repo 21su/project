@@ -20,6 +20,9 @@
     <delete id="delete-board" parameterType="Long">
         delete from board_t where b_id = #{b_id}
     </delete>
+    <select id="findAll" resultType="board">
+        select * from board_t where boardSecret = 2 or boardSecret = 3
+    </select>
 </mapper>
 
 
