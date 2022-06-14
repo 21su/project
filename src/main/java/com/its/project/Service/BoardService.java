@@ -134,4 +134,16 @@ public class BoardService {
             return 0;
         }
     }
+
+    public List<ImageDTO> imgSetting(Long b_id, int round) {
+        List<ImageDTO> allImage = boardRepository.imageId(b_id);
+        List<ImageDTO> img = new ArrayList<>();
+        for(int i = 0; i < round; i++){
+            int random = (int)(Math.random()*10000);
+            int randomI = random % allImage.size();
+            img.add(allImage.get(randomI));
+            allImage.remove(randomI);
+        }
+        return img;
+    }
 }

@@ -134,4 +134,48 @@ public class BoardController {
             return "/board/select";
         }
     }
+    @GetMapping("/main")
+    public String main(@RequestParam("round") int round,
+                       @RequestParam("b_id") Long b_id,
+                       @RequestParam(value = "img1", required = false, defaultValue = "") List<Long> img1,
+                       Model model){
+        List<ImageDTO> img = new ArrayList<>();
+        System.out.println("BoardController.main");
+        System.out.println(img1.size());
+        BoardDTO boardDTO = boardService.findById(b_id);
+        model.addAttribute("boardDTO", boardDTO);
+        if(round == 1){
+            ImageDTO imageDTO = boardService.imageById(img1.get(0));
+            model.addAttribute("imageDTO", imageDTO);
+            return "/board/comment";
+        }
+        if(img1.size() == 0){
+            img = boardService.imgSetting(b_id,round);
+        }
+        else{
+            for(int i = 0; i < img1.size(); i++){
+                img.add(boardService.imageById(img1.get(i)));
+            }
+        }
+        List<ImageDTO> list1 = new ArrayList<>();
+        List<ImageDTO> list2 = new ArrayList<>();
+        for(int i = 0; i < round; i++) {
+            int random = (int) (Math.random() * 1000);
+            int random1 = random % img.size();
+            if(i % 2 == 0){
+                list1.add(img.get(random1));
+                img.remove(random1);
+            }
+            else if(i % 2 != 0){
+                list2.add(img.get(random1));
+                img.remove(random1);
+            }
+        }
+        int round2 = round/2;
+        model.addAttribute("round2", round2);
+        model.addAttribute("list1",list1);
+        model.addAttribute("list2",list2);
+        model.addAttribute("round",round);
+        return "/board/main";
+    }
 }

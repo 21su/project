@@ -23,7 +23,7 @@
         }
         .box .box_in{
             width: 500px;
-            height: 300px;
+            height: 320px;
             position: absolute;
             left: 50%;
             top: 50%;
@@ -40,9 +40,16 @@
         }
     </style>
     <script>
-        const mainStart = () => {
+        const mainS = () => {
             if(${boardDTO.boardSecret != 3}){
                 roundCheck.submit();
+            }else{
+                const pw = document.getElementById("pw").value;
+                if(pw == "${boardDTO.boardPassword}"){
+                    roundCheck.submit();
+                }else{
+                    $("#result").fadeIn(1000).delay(1000).fadeOut(1000);
+                }
             }
         }
     </script>
@@ -59,17 +66,18 @@
                 </p>
                 <p class="h3 text-center mt-2\">${boardDTO.boardName} 월드컵</p>
                 <p class="mt-2 border-bottom">총 ${num}개의 항목이 있습니다.<br /> 총 라운드 수를 선택해주세요.</p>
-                <form name="roundCheck" action="/board/main" method="post">
+                <form name="roundCheck" action="/board/main" method="get">
+                    <input type="hidden" name="b_id" value="${boardDTO.b_id}">
                     <select class="form-select" name="round">
                         <c:forEach var="round" items="${roundMap}">
                             <option value="${round.key}">${round.value}</option>
                         </c:forEach>
                     </select>
                     <c:if test="${boardDTO.boardSecret == 3}">
-                        비밀번호: <input type="password" name="boardPassword" class="form-text" placeholder="비밀번호 입력">
-                        <p class="result"></p>
+                        비밀번호: <input type="password" id="pw" name="boardPassword" class="form-text" placeholder="비밀번호 입력">
+                        <p id="result" style="font-size: 7px;color: red;display: none">틀린 비밀번호 입니다.</p>
                     </c:if>
-                    <p><input type="button" onclick="" class="btn btn-outline-danger btn1" value="확인"></p>
+                    <input type="button" onclick="mainS()" class="btn btn-outline-danger btn1" value="확인">
                 </form>
             </div>
         </div>
