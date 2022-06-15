@@ -21,6 +21,7 @@
             margin-left: 100px;
             width: 30%;
             height: 300px;
+            display: inline-block;
         }
         .exp2{
             background-color: rgba(60, 229, 255, 0.37);
@@ -28,6 +29,7 @@
             margin-left: 500px;
             width: 30%;
             height: 350px;
+            display: inline-block;
         }
         .commentBlock{
             background-color: rgba(60, 229, 255, 0.37);
@@ -42,7 +44,7 @@
         .ranking{
             background-color: rgba(60, 229, 255, 0.37);
             background-size: cover;
-            margin-top: -300px;
+            margin-top: -658px;
             width: 68%;
             height: 660px;
             display: inline-block;
@@ -62,9 +64,6 @@
         }
         .ms-n7{
             margin-left: -70px;
-        }
-        .table1{
-            margin-top: -300px;
         }
         .img1{
             width: 100px;
@@ -87,16 +86,16 @@
         </div>
     </div>
     <br/>
+            <div class="float-end exp2 mt-2 text-center">
     <c:choose>
         <c:when test="${imageDTO.i_id != 0}">
-            <div class="float-end exp2 mt-2">
                 <br />
                 <p class="h3">내가 선택한 이미지</p>
-                <p class="h4 mt-2 mar">${imageDTO.imageName}</p>
+                <p class="h5 mt-2 mar">${imageDTO.imageName}</p>
                 <img class="mainImg mt-3" src="${pageContext.request.contextPath}/upload/${imageDTO.imageManageName}">
-            </div>
         </c:when>
     </c:choose>
+            </div>
     <div class="ranking position-relative">
         <div class="m-3">
             <br />
@@ -178,7 +177,12 @@
     </div>
     <div class="commentBlock mb-3">
         <div class="comment">
-            <p class="h2 m-3">Comment</p>
+            <div class="">
+                <p class="h2 m-3">Comment</p>
+            </div>
+            <div class="m-3">
+                asdsad
+            </div>
         </div>
     </div>
 </div>

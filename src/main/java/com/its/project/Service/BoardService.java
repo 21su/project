@@ -110,7 +110,7 @@ public class BoardService {
         if(num == 0){
             roundMap.put(0,"");
         }
-        if(num > 4){
+        if(num >= 4){
             roundMap.put(4, "4강");
             if(num >= 8){
                 roundMap.put(8, "8강");
