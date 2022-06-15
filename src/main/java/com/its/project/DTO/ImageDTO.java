@@ -14,4 +14,7 @@ public class ImageDTO {
     private String imageManageName;
     private String imageName;
     private MultipartFile file;
+    private Long win;
+    private int start;
+    private int limit;
 }

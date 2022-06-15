@@ -2,6 +2,7 @@ package com.its.project.Controller;
 
 import com.its.project.DTO.BoardDTO;
 import com.its.project.DTO.ImageDTO;
+import com.its.project.DTO.PageDTO;
 import com.its.project.Service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,6 +100,12 @@ public class BoardController {
         return "redirect:/board/myb?memberId=" + memberId;
     }
 
+    @GetMapping("/board-delete")
+    public String boardDelete(@RequestParam("b_id") Long b_id) {
+        boardService.deleteBoard(b_id);
+        return "redirect:/";
+    }
+
     @GetMapping("/image-delete")
     public String imageDelete(@RequestParam("i_id") Long i_id,
                               @RequestParam("b_id") Long b_id){
@@ -140,14 +147,12 @@ public class BoardController {
                        @RequestParam(value = "img1", required = false, defaultValue = "") List<Long> img1,
                        Model model){
         List<ImageDTO> img = new ArrayList<>();
-        System.out.println("BoardController.main");
-        System.out.println(img1.size());
         BoardDTO boardDTO = boardService.findById(b_id);
         model.addAttribute("boardDTO", boardDTO);
         if(round == 1){
-            ImageDTO imageDTO = boardService.imageById(img1.get(0));
-            model.addAttribute("imageDTO", imageDTO);
-            return "/board/comment";
+            boardService.view(b_id);
+            boardService.win(img1.get(0),b_id);
+            return "redirect:/board/comment?i_id="+img1.get(0)+"&b_id="+b_id;
         }
         if(img1.size() == 0){
             img = boardService.imgSetting(b_id,round);
@@ -177,5 +182,26 @@ public class BoardController {
         model.addAttribute("list2",list2);
         model.addAttribute("round",round);
         return "/board/main";
+    }
+    @GetMapping("/comment")
+    public String comment(@RequestParam("i_id")Long i_id,
+                          @RequestParam("b_id")Long b_id,
+                          @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                          Model model){
+        BoardDTO boardDTO = boardService.findById(b_id);
+        model.addAttribute("boardDTO", boardDTO);
+        List<ImageDTO> rankList = boardService.rank(b_id,page);
+        PageDTO pageDTO = boardService.paging(page,b_id);
+        model.addAttribute("rankList",rankList);
+        model.addAttribute("paging",pageDTO);
+        if(i_id == 0) {
+            ImageDTO imageDTO = new ImageDTO();
+            imageDTO.setI_id(i_id);
+            model.addAttribute("imageDTO", imageDTO);
+        }else{
+            ImageDTO imageDTO = boardService.imageById(i_id);
+            model.addAttribute("imageDTO", imageDTO);
+        }
+        return "/board/comment";
     }
 }

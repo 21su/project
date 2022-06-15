@@ -2,6 +2,7 @@ package com.its.project.Service;
 
 import com.its.project.DTO.BoardDTO;
 import com.its.project.DTO.ImageDTO;
+import com.its.project.DTO.PageDTO;
 import com.its.project.Repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -145,5 +146,52 @@ public class BoardService {
             allImage.remove(randomI);
         }
         return img;
+    }
+
+    public void view(Long b_id) {
+        boardRepository.view(b_id);
+    }
+
+    public void win(Long i_id, Long b_id) {
+        boardRepository.win(i_id,b_id);
+    }
+
+    private static final int PAGE_LIMIT = 4;
+    private static final int BLOCK_LIMIT = 5;
+
+    public List<ImageDTO> rank(Long b_id,int page) {
+        try {
+            int pagingStart = (page-1) * PAGE_LIMIT;
+            ImageDTO imageDTO = new ImageDTO();
+            imageDTO.setB_id(b_id);
+            imageDTO.setStart(pagingStart);
+            imageDTO.setLimit(PAGE_LIMIT);
+            return boardRepository.rank(imageDTO);
+        }catch (NullPointerException e){
+            return null;
+        }
+    }
+
+    public PageDTO paging(int page,Long b_id) {
+        // 글 갯수 조회
+        int boardCount = boardRepository.imageCount(b_id);
+        // 필요한 전체 페이지 갯수
+        int maxPage = (int)(Math.ceil((double)boardCount / PAGE_LIMIT));
+        // 시작페이지 1 4 7 10 ...
+        int startPage = (((int)(Math.ceil((double)page / BLOCK_LIMIT))) - 1) * BLOCK_LIMIT + 1;
+        // 끝페이지 3 6 9 12 ...
+        int endPage = startPage + BLOCK_LIMIT - 1;
+        if(endPage > maxPage)
+            endPage = maxPage;
+        PageDTO paging = new PageDTO();
+        paging.setPage(page);
+        paging.setStartPage(startPage);
+        paging.setEndPage(endPage);
+        paging.setMaxPage(maxPage);
+        return paging;
+    }
+
+    public PageDTO paging(int page) {
+        return null;
     }
 }

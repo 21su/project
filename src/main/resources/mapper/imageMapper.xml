@@ -26,6 +26,15 @@
     <select id="image-id" parameterType="Long" resultType="image">
         select * from image_t where i_id = #{i_id}
     </select>
+    <update id="win" parameterType="image">
+        update image_t set win = win+1 where b_id = #{b_id} and i_id = #{i_id}
+    </update>
+    <select id="rank" parameterType="image" resultType="image">
+        select  * from image_t where b_id = #{b_id} order by win desc limit #{start}, #{limit}
+    </select>
+    <select id="count" resultType="int" parameterType="Long">
+        select count(i_id) from image_t where b_id = #{b_id}
+    </select>
 </mapper>
 
 

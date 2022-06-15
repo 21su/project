@@ -26,6 +26,9 @@
     <select id="round" parameterType="Long" resultType="int">
         select  count(i_id) from image_t where b_id = #{b_id} group by b_id
     </select>
+    <update id="view" parameterType="Long">
+        update board_t set boardViews = boardViews +  1 where b_id = #{b_id}
+    </update>
 </mapper>
 
 

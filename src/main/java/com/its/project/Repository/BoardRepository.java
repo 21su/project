@@ -71,4 +71,23 @@ public class BoardRepository {
         int num =  sql.selectOne("Board.round", b_id);
         return num;
     }
+
+    public void view(Long b_id) {
+        sql.update("Board.view", b_id);
+    }
+
+    public void win(Long i_id, Long b_id) {
+        ImageDTO imageDTO = new ImageDTO();
+        imageDTO.setI_id(i_id);
+        imageDTO.setB_id(b_id);
+        sql.insert("Image.win", imageDTO);
+    }
+
+    public List<ImageDTO> rank(ImageDTO imageDTO) {
+        return sql.selectList("Image.rank", imageDTO);//해야됨
+    }
+
+    public int imageCount(Long b_id) {
+        return sql.selectOne("Image.count", b_id);
+    }
 }

@@ -20,7 +20,7 @@
 <div class="container mt-3 row">
     <c:forEach var="board" items="${boardList}">
         <div class="m-3 col-sm-3">
-            <div class="col-xl-6 col-sm-3 col-lg-2 border border-1 border-secondary" style="padding: 2px; width: 200px; height: 330px;">
+            <div class="col-xl-6 col-sm-3 col-lg-2 border border-1 border-secondary" style="padding: 2px; width: 200px; height: 350px;">
                 <div class="border border-1" style="height: 200px;padding: 0px">
                     <c:forEach var="i" begin="1" end="2" step="1">
                         <c:choose>
@@ -33,10 +33,13 @@
                         </c:choose>
                     </c:forEach>
                 </div>
-                <a>${board.boardName}&nbsp;</a>
-                <div class="small">${board.boardExp}&nbsp;</div>
-                <a href="/board/select?b_id=${board.b_id}" class="btn btn-sm btn-outline-success mb-2">시작하기</a>
-                <a href="" class="btn btn-sm btn-outline-warning mb-2">랭킹보기</a>
+                <p class="text-center h5">${board.boardName}&nbsp;</p>
+                <div class="text-center small m-1">${board.boardExp}&nbsp;</div>
+                <a href="/board/select?b_id=${board.b_id}" class="btn btn-sm btn-outline-success mb-2 ms-2">시작하기</a>
+                <a href="/board/comment?b_id=${board.b_id}&i_id=0" class="btn btn-sm btn-outline-warning mb-2 ms-3">랭킹보기</a>
+                <c:if test="${sessionScope.memberId eq 'admin'}">
+                    <button type="button" onclick="location.href='/board/board-delete?b_id=${board.b_id}'" class="btn btn-sm btn-outline-danger ms-2">삭제하기</button>
+                </c:if>
             </div>
         </div>
     </c:forEach>
