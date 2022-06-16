@@ -14,13 +14,22 @@
     <script src="/resources/js/jquery.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <style>
+        .aa{
+            display: inline-flex;
+        }
+        .main{
+            margin-top: 60px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-<div class="container mt-3 row">
+<div class="main container-xl">
+    <p class="text-center h1 m-5">내가 만든 월드컵</p>
 <c:forEach var="board" items="${boardList}">
-<div class="m-3 col-sm-3">
-    <div class="col-xl-6 col-sm-3 col-lg-2 border border-1 border-secondary" style="padding: 2px; width: 200px; height: 330px;">
+<div class="m-3 aa">
+    <div class="border border-1 border-secondary" style="padding: 2px; width: 200px; height: 330px;">
         <div class="border border-1" style="height: 200px;padding: 0px">
             <c:forEach var="i" begin="1" end="2" step="1">
                 <c:choose>
