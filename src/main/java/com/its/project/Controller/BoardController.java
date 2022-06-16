@@ -1,9 +1,11 @@
 package com.its.project.Controller;
 
 import com.its.project.DTO.BoardDTO;
+import com.its.project.DTO.CommentDTO;
 import com.its.project.DTO.ImageDTO;
 import com.its.project.DTO.PageDTO;
 import com.its.project.Service.BoardService;
+import com.its.project.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,8 @@ public class BoardController {
 
     @Autowired
     BoardService boardService;
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/save")
     public String saveBoard(@ModelAttribute BoardDTO boardDTO,
@@ -184,14 +188,16 @@ public class BoardController {
         return "/board/main";
     }
     @GetMapping("/comment")
-    public String comment(@RequestParam("i_id")Long i_id,
+    public String comment(@RequestParam(value = "i_id", required = false, defaultValue = "0")Long i_id,
                           @RequestParam("b_id")Long b_id,
                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                           Model model){
+        List<CommentDTO> commentList = commentService.findAll(b_id);
         BoardDTO boardDTO = boardService.findById(b_id);
         model.addAttribute("boardDTO", boardDTO);
         List<ImageDTO> rankList = boardService.rank(b_id,page);
         PageDTO pageDTO = boardService.paging(page,b_id);
+        model.addAttribute("commentList", commentList);
         model.addAttribute("rankList",rankList);
         model.addAttribute("paging",pageDTO);
         if(i_id == 0) {

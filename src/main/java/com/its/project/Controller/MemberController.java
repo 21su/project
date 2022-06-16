@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -97,5 +98,12 @@ public class MemberController {
         memberService.deleteId(m_id);
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping("/findAll")
+    public String findAll(Model model){
+        List<MemberDTO> memberList = memberService.findAll();
+        model.addAttribute("memberList", memberList);
+        return "/member/findAll";
     }
 }

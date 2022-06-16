@@ -5,6 +5,8 @@ import com.its.project.Repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MemberService {
     @Autowired
@@ -36,5 +38,9 @@ public class MemberService {
 
     public void deleteId(Long m_id) {
         memberRepository.deleteId(m_id);
+    }
+
+    public List<MemberDTO> findAll() {
+        return null;
     }
 }

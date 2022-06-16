@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Comment">
+    <insert id="save" parameterType="comment">
+        insert into comment_t(memberId, b_id, commentContents, commentCreatedDate)
+        values (#{memberId},#{b_id},#{commentContents},now())
+    </insert>
+    <select id="findAll" parameterType="Long" resultType="comment">
+        select * from comment_t where b_id = ${b_id} order by c_id desc
+    </select>
+    <delete id="delete" parameterType="Long">
+        delete from comment_t where c_id = ${c_id}
+    </delete>
+    <update id="update" parameterType="comment">
+        update comment_t set commentContents = #{commentContents} where c_id = #{c_id}
+    </update>
+</mapper>
+
+
+

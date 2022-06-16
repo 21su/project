@@ -69,7 +69,141 @@
             width: 100px;
             max-height: 100px;
         }
+        .commentBox{
+            border-radius: 30px;
+            background-size: cover;
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 1085px;
+            height: 200px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        .commentBox2{
+            border-radius: 30px;
+            background-size: cover;
+            background-color: rgba(255, 255, 255, 1);
+            width: 1085px;
+            height: 200px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+        .c{
+            position: relative;
+        }
+        .cContent{
+            position: absolute;
+            top: 50px;
+            width: 900px;
+        }
+        .cUser{
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 300px;
+            font-size: 20px;
+        }
+        .cDate{
+            top: 0;
+            left: 900px;
+            position: absolute;
+            width: 100px;
+            font-size: 10px;
+        }
+        .cButton{
+            top:120px;
+            left: 900px;
+            position: absolute;
+        }
+        .sand{
+            margin-left: 65px;
+        }
+        .saveUser{
+            border: none;
+            width: 500px;
+            background: transparent;
+        }
+        .saveContents{
+            border: none;
+            width: 900px;
+            height: 100px;
+            background: transparent;
+        }
     </style>
+    <script>
+        const saveComment = () =>{
+            const b_id = '${boardDTO.b_id}'
+            const memberId = document.getElementById("memberId").value;
+            const commentContents = document.getElementById("commentContents").value;
+            $.ajax({
+                type: "post",
+                url: "/comment/comment-save",
+                data: {
+                    "b_id": b_id,
+                    "memberId": memberId,
+                    "commentContents": commentContents
+                },
+                dataType: "json",
+                success:function (result){
+                    let comment = "";
+                    for(let i in result){
+                        console.log(result[i].memberId);
+                        comment += "<div class='m-3 commentBox'><div class='m-3 c'>";
+                        comment += "<input type='hidden' id='c_id"+ result[i].c_id + "'>";
+                        comment += "<div class='cUser'><p id='memberId"+result[i].c_id+"'>" + result[i].memberId + "</p></div>";
+                        comment += "<div class='cDate'>" + moment(result[i].commentCreatedDate).format("YYYY-MM-DD HH:mm") + "</div>";
+                        comment += "<div class='cContent' id='contentsBox" + result[i].c_id + "'  style='display: inline'>" + result[i].commentContents + "</div>";
+                        comment += "<div class='cContent' id='textBox" + result[i].c_id + "' style='display: none'> <textarea class='saveContents' id='commentContents" + result[i].c_id + "' name='commentContents' placeholder='내용작성'>"+ result[i].commentContents +"</textarea></div>";
+                        comment += `<div class='cButton' id='button1` + result[i].c_id + `' style="display: inline"> <input type='button' onclick='updateContents(`+ result[i].c_id +`)' class='btn btn-outline-warning b1' value='수정'><input type='button' onclick='deleteContents(`+ result[i].c_id +`)'  class='btn btn-outline-danger b1' value='삭제'></div>`;
+                        comment += `<div class='cButton' id='button2` + result[i].c_id + `' style="display: none">`;
+                        comment += `<input type='button' onclick="updateContents1(` + result[i].c_id + `)" class='btn btn-outline-success' value='변경'>`;
+                        comment += `<input type='button' onclick="backContents(` + result[i].c_id + `)" class='btn btn-outline-success' value='뒤로'>`;
+                        comment += `</div>`;
+                        comment += "</div></div>";
+                    }
+                    document.getElementById("comment").innerHTML = comment;
+                    document.getElementById("commentContents").value = "";
+                },
+                error:function (){
+                    alert("에러");
+                }
+            });
+        }
+        const backContents = (c_id) =>{
+            document.getElementById("button1"+c_id).style.display = "inline";
+            document.getElementById("button2"+c_id).style.display = "none";
+            document.getElementById("contentsBox"+c_id).style.display = "inline";
+            document.getElementById("textBox"+c_id).style.display = "none";
+        }
+        const updateContents = (c_id) =>{
+            const memberId = document.getElementById("memberId"+c_id).innerHTML;
+            const sessionId = '${sessionScope.memberId}';
+            if(sessionId == memberId){
+                document.getElementById("button1"+c_id).style.display = "none";
+                document.getElementById("button2"+c_id).style.display = "inline";
+                document.getElementById("contentsBox"+c_id).style.display = "none";
+                document.getElementById("textBox"+c_id).style.display = "inline";
+            }
+            else{
+                alert("본인 댓글이 아닐경우 수정/삭제가 불가능합니다.")
+            }
+        }
+        const updateContents1 = (c_id) =>{
+            const commentContents = document.getElementById("commentContents"+c_id).value;
+            const b_id = '${boardDTO.b_id}';
+            location.href="/comment/update?commentContents="+commentContents+"&c_id="+c_id+"&b_id="+b_id;
+
+        }
+        function deleteContents(c_id){
+            const memberId = document.getElementById("memberId"+c_id).innerHTML;
+            const sessionId = '${sessionScope.memberId}';
+            const b_id = '${boardDTO.b_id}';
+            if(sessionId == memberId || sessionId == 'admin'){
+                location.href="/comment/comment-delete?c_id="+c_id+"&b_id="+b_id;
+            }else{
+                alert("본인 댓글이 아닐경우 수정/삭제가 불가능합니다.")
+            }
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -180,9 +314,71 @@
             <div class="">
                 <p class="h2 m-3">Comment</p>
             </div>
-            <div class="m-3">
-                asdsad
+            <div id="comment">
+            <c:choose>
+                <c:when test="${commentList.size() == 0}">
+                    <div class='m-3 commentBox'>
+                        <div class='m-3 c'>
+                            <div class='cUser'>아이디</div>
+                            <div class='cDate'>
+                                작성시간
+                            </div>
+                            <div class='cContent'>
+                                    내용
+                            </div>
+                            <div class='cButton'>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="comment" items="${commentList}">
+                        <div class='m-3 commentBox'>
+                            <div class='m-3 c'>
+                                <input type="hidden" id="c_id${comment.c_id}">
+                                <div class='cUser'><p id="memberId${comment.c_id}">${comment.memberId}</p></div>
+                                <div class='cDate'>
+                                    <fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${comment.commentCreatedDate}"></fmt:formatDate>
+                                </div>
+                                <div class='cContent' id='contentsBox${comment.c_id}' style="display: inline">
+                                    ${comment.commentContents}
+                                </div>
+                                <div class='cContent' id='textBox${comment.c_id}' style="display: none">
+                                    <textarea class="saveContents" id="commentContents${comment.c_id}" name="commentContents" placeholder="내용작성">${comment.commentContents}</textarea>
+                                </div>
+                                <div class='cButton' id="button1${comment.c_id}" style="display: inline">
+                                    <input type='button' onclick="updateContents('${comment.c_id}')" class='btn btn-outline-warning b1' value='수정'>
+                                    <input type='button' onclick="deleteContents('${comment.c_id}')" class='btn btn-outline-danger b1' value='삭제'>
+                                </div>
+                                <div class="cButton" id="button2${comment.c_id}" style="display: none">
+                                    <input type='button' onclick="updateContents1('${comment.c_id}')" class='btn btn-outline-success' value='변경'>
+                                    <input type='button' onclick="backContents('${comment.c_id}')" class='btn btn-outline-success' value='뒤로'>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
             </div>
+            <c:choose>
+                <c:when test="${sessionScope.memberName != null}">
+                    <form method="post" name="commentSave" action="/comment/comment-save">
+                        <div class='m-3 commentBox2'>
+                            <div class='m-3 c'>
+                                <div class="cUser"><input type="text" id="memberId" class="saveUser" name="memberId" value="${sessionScope.memberId}"  readonly></div>
+                                <div class="cContent">
+                                    <textarea class="saveContents" id="commentContents" name="commentContents" placeholder="내용작성"></textarea>
+                                </div>
+                                <div class="cButton">
+                                    <input type="button" onclick="saveComment()" class="sand btn btn-outline-success" value="전송">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
