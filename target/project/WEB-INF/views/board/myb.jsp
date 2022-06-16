@@ -17,10 +17,10 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-<div class="container mt-3 row">
+<div class="mt-3">
 <c:forEach var="board" items="${boardList}">
-<div class="m-3 col-sm-3">
-    <div class="col-xl-6 col-sm-3 col-lg-2 border border-1 border-secondary" style="padding: 2px; width: 200px; height: 330px;">
+<div class="m-3">
+    <div class="border border-1 border-secondary" style="padding: 2px; width: 200px; height: 330px;">
         <div class="border border-1" style="height: 200px;padding: 0px">
             <c:forEach var="i" begin="1" end="2" step="1">
                 <c:choose>

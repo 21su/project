@@ -5,6 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class MemberRepository {
     @Autowired
@@ -37,5 +39,9 @@ public class MemberRepository {
 
     public void deleteId(Long m_id) {
         sql.delete("Member.deleteId",m_id);
+    }
+
+    public List<MemberDTO> findAll() {
+        return sql.selectList("Member.findAll");
     }
 }

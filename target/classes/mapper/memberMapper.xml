@@ -26,6 +26,9 @@
     <delete id="deleteId" parameterType="Long">
         delete from member_t where m_id = #{m_id}
     </delete>
+    <select id="findAll" resultType="member">
+        select * from member_t
+    </select>
 </mapper>
 
 

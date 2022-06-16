@@ -41,6 +41,12 @@ public class MemberService {
     }
 
     public List<MemberDTO> findAll() {
-        return null;
+        try {
+            List<MemberDTO> memberList = memberRepository.findAll();
+            return memberList;
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 }

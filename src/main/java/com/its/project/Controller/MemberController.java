@@ -100,6 +100,12 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("m_id") Long m_id){
+        memberService.deleteId(m_id);
+        return "redirect:/member/findAll";
+    }
+
     @GetMapping("/findAll")
     public String findAll(Model model){
         List<MemberDTO> memberList = memberService.findAll();

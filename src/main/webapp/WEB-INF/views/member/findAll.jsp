@@ -18,5 +18,27 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
+<div class="container mt-2">
+    <div class="m-3">
+        <table class="table table-info text-center">
+            <tr class="table-active">
+                <th scope="col">#</th>
+                <th scope="col">아이디</th>
+                <th scope="col">회원이름</th>
+                <th scope="col">이메일</th>
+                <th scope="col">삭제</th>
+            </tr>
+            <c:forEach var="member" items="${memberList}">
+                <tr>
+                    <th scope="row">${member.m_id}</th>
+                    <td>${member.memberId}</td>
+                    <td>${member.memberName}</td>
+                    <td>${member.memberEmail}</td>
+                    <td><button class="btn btn-outline-info" onclick="location.href='/member/delete?m_id=${member.m_id}'">삭제</button></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</div>
 </body>
 </html>
