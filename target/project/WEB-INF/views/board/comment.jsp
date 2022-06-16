@@ -52,6 +52,7 @@
         .mainImg{
             width: 100%;
             max-width: 80%;
+            max-height: 60%;
         }
         .text1{
             margin-top: -10px;

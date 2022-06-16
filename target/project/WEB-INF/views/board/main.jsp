@@ -76,7 +76,14 @@
 <div class="container text-center text-white">
     <div id="main">
         <p class="h2">${boardDTO.boardName}월드컵</p>
-        <p class="h4">${round}강전</p>
+        <c:choose>
+            <c:when test="${round == 2}">
+                <p class="h4">결승전</p>
+            </c:when>
+            <c:otherwise>
+                <p class="h4">${round}강전</p>
+            </c:otherwise>
+        </c:choose>
         <p class="h4">1/${round2}</p>
         <table>
             <tr>
