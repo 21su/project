@@ -82,7 +82,7 @@
                     </c:forEach>
                 </div>
                 <p class="text-center h5">${board.boardName}&nbsp;</p>
-                <div class="text-center small m-1">${board.boardExp}&nbsp;</div>
+                <div class="text-center small m-1 text-truncate">${board.boardExp}&nbsp;</div>
                 <a href="/board/select?b_id=${board.b_id}" class="btn btn-sm btn-outline-success mb-2 ms-2">시작하기</a>
                 <a href="/board/comment?b_id=${board.b_id}&i_id=0" class="btn btn-sm btn-outline-warning mb-2 ms-3">랭킹보기</a>
                 <c:if test="${sessionScope.memberId eq 'admin'}">
