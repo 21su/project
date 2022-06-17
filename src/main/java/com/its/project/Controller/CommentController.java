@@ -22,17 +22,14 @@ public class CommentController {
     }
 
     @GetMapping("/comment-delete")
-    public String delete(@RequestParam("c_id") Long c_id,
-                         @RequestParam("b_id") Long b_id){
-        commentService.delete(c_id);
-        return "redirect:/board/comment?b_id=" + b_id;
+    public String delete(@ModelAttribute CommentDTO commentDTO){
+        commentService.delete(commentDTO.getC_id());
+        return "redirect:/board/comment?b_id=" + commentDTO.getB_id();
     }
 
     @GetMapping("/update")
-    public String update(@RequestParam("commentContents") String commentContents,
-                         @RequestParam("c_id") Long c_id,
-                         @RequestParam("b_id") Long b_id){
-        commentService.update(c_id,commentContents);
-        return "redirect:/board/comment?b_id=" + b_id;
+    public String update(@ModelAttribute CommentDTO commentDTO){
+        commentService.update(commentDTO);
+        return "redirect:/board/comment?b_id=" + commentDTO.getB_id();
     }
 }

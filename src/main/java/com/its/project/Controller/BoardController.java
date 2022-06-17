@@ -210,4 +210,22 @@ public class BoardController {
         }
         return "/board/comment";
     }
+    @GetMapping("/search")
+    public String search(@RequestParam("searchType") String searchType,
+                         @RequestParam("q") String q, Model model){
+        List<BoardDTO> boardList = boardService.search(searchType,q);
+        Map<Long ,List<ImageDTO>> listMap = new HashMap<>();
+        for(int i = 0; boardList.size() > i;i++){
+            List<ImageDTO> imageDTOList = boardService.imageTitle(boardList.get(i).getB_id());
+            for(int j = 0; 2 > j; j++){
+                if(imageDTOList.size() < 2){
+                    imageDTOList.add(null);
+                }
+            }
+            listMap.put(boardList.get(i).getB_id(), imageDTOList);
+        }
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("listMap", listMap);
+        return "index";
+    }
 }

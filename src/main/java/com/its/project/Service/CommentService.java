@@ -32,10 +32,7 @@ public class CommentService {
         commentRepository.delete(c_id);
     }
 
-    public void update(Long c_id, String commentContents) {
-        CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setC_id(c_id);
-        commentDTO.setCommentContents(commentContents);
+    public void update(CommentDTO commentDTO) {
         commentRepository.update(commentDTO);
     }
 }

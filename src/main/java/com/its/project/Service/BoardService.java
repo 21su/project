@@ -191,7 +191,15 @@ public class BoardService {
         return paging;
     }
 
-    public PageDTO paging(int page) {
-        return null;
+    public List<BoardDTO> search(String searchType, String q) {
+        Map<String,String> searchparam = new HashMap<>();
+        searchparam.put("type", searchType);
+        searchparam.put("q", q);
+        try {
+            List<BoardDTO> searchList = boardRepository.search(searchparam);
+            return searchList;
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 }

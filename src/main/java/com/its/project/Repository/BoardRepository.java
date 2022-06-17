@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BoardRepository {
@@ -89,5 +90,9 @@ public class BoardRepository {
 
     public int imageCount(Long b_id) {
         return sql.selectOne("Image.count", b_id);
+    }
+
+    public List<BoardDTO> search(Map<String, String> searchparam) {
+        return sql.selectList("Board.search",searchparam);
     }
 }
