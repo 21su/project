@@ -21,7 +21,7 @@
         delete from board_t where b_id = #{b_id}
     </delete>
     <select id="findAll" resultType="board">
-        select * from board_t where boardSecret = 2 or boardSecret = 3
+        select * from board_t where boardSecret = 2 or boardSecret = 3 order by b_id desc;
     </select>
     <select id="round" parameterType="Long" resultType="int">
         select  count(i_id) from image_t where b_id = #{b_id} group by b_id
@@ -29,6 +29,9 @@
     <update id="view" parameterType="Long">
         update board_t set boardViews = boardViews +  1 where b_id = #{b_id}
     </update>
+    <select id="search" parameterType="java.util.HashMap" resultType="board">
+        select * from board_t where (boardSecret = 2 or boardSecret = 3) and ${type} like concat('%', #{q}, '%') order by b_id desc;
+    </select>
 </mapper>
 
 

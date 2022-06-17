@@ -16,17 +16,56 @@
     <title>이상형 월드컵</title>
     <style>
         .aa{
+            background-size: cover;
+            background-color: white;
             display: inline-flex;
         }
-        .main{
-            margin-top: 60px;
+        .search{
+            background-size: cover;
+            background-color: rgba(60, 229, 255, 0.37);
+            border-radius: 20px 20px 0px 0px;
+            margin-top: -61px;
+            display: inline-block;
+
+        }
+        .searchBox{
+            margin-top: 15px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .main1{
+            width: 95%;
+            background-size: cover;
+            border-radius: 20px 0px 20px 20px;
+            background-color: rgba(60, 229, 255, 0.37);
+            display: inline-block;
+        }
+        .aa3{
+            margin: 50px 100px 100px 100px;
         }
     </style>
 </head>
 <body>
 <jsp:include page="./layout/header.jsp" flush="false"></jsp:include>
-<div class="main container-xl">
-    <p class="text-center h1 m-5">이상형 월드컵</p>
+<div class="mt-5 container-xl position-relative">
+<div class="main container-xl aa3">
+    <p class="text-center h1 m-5" onclick="location.href='/'">이상형 월드컵</p>
+</div>
+<div class="search position-absolute end-0">
+    <div class="searchBox">
+    <form action="/board/search" method="get">
+        <select name="searchType">
+            <option value="boardName">제목</option>
+            <option value="memberId">작성자</option>
+        </select>
+        <input type="text" name="q" placeholder="검색어 입력">
+        <input type="submit" value="검색">
+    </form>
+    </div>
+</div>
+
+    <div class="main1 position-absolute end-0">
+        <div class="m-3">
     <c:forEach var="board" items="${boardList}">
         <div class="m-3 aa">
             <div class="border border-1 border-secondary" style="padding: 2px; width: 200px; height: 350px;">
@@ -52,6 +91,8 @@
             </div>
         </div>
     </c:forEach>
+    </div>
+</div>
 </div>
 </body>
 </html>
